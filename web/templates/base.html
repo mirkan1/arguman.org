@@ -6,16 +6,16 @@
     <meta charset="utf-8">
     <meta name="description" content="{% block description %}{% trans "Argument analysis and mapping platform" %}{% endblock %}" />
     {% load static %}
-    <link rel="stylesheet" href="{% static "css/h5bp.css" %}" />
-    <link rel="stylesheet" href="{% static "css/normalize.css" %}" />
-    <link rel="stylesheet" href="{% static "css/main.css" %}?v=3.2.6" />
-    <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}" />
-    <link rel="image_src" type="image/png" href="https://arguman.org{% static "img/logo-large.png" %}" />
-    <meta property="og:image" content="http://arguman.org{% static "img/logo-large.png" %}"/>
+    <link rel="stylesheet" href="{% static 'css/h5bp.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=3.2.6" />
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
+    <link rel="image_src" type="image/png" href="https://arguman.org{% static 'img/logo-large.png' %}" />
+    <meta property="og:image" content="http://arguman.org{% static 'img/logo-large.png' %}"/>
     <meta name="google-site-verification" content="g-YRAePbSzX5_eMCqQvkkYqecMlQNAIxhRXmeAKMmiQ" />
     {% block extra-meta %}{% endblock %}
 </head>
-<body{% block body-attrs %}{% endblock %}>
+<body>{% block body-attrs %}{% endblock %}>
 {% block header %}
 <header class="container">
     {% if announcements.exists %}
@@ -28,23 +28,23 @@
     <div id="logo">
         <a href="{% if user.is_anonymous %}/{% else %}{% url "newsfeed" %}{% endif %}">
             argüman
-            <img src="{% static "img/logo.png" %}" alt=""/></a>
+            <img src="{% static 'img/logo.png' %}" alt=""/></a>
     </div>
     <nav>
         <ul id="site-navigation">
-            <li><a href="{% url "about" %}">{% trans "about" %}</a></li>
-            <li><a href="{% url "blog" %}">{% trans "blog" %}</a></li>
+            <li><a href="{% url 'about' %}">{% trans "about" %}</a></li>
+            <li><a href="{% url 'blog' %}">{% trans "blog" %}</a></li>
             {% if user.is_anonymous %}
-            <li><a href="{% url "auth_registration" %}">{% trans "register" %}</a></li>
-            <li><a href="{% url "auth_login" %}">{% trans "login" %}</a></li>
+            <li><a href="{% url 'auth_registration' %}">{% trans "register" %}</a></li>
+            <li><a href="{% url 'auth_login' %}">{% trans "login" %}</a></li>
             {% else %}
-            <li><a class="new-argument-link" href="{% url "new_argument" %}">{% trans "new argument" %}</a></li>
-            <li><a class="username" href="{% url "auth_profile" user.username %}">{{ user.username|truncatechars:14 }}</a>
-                (<a href="{% url "auth_logout" %}">{% trans "logout" %}</a>)</li>
+            <li><a class="new-argument-link" href="{% url 'new_argument' %}">{% trans "new argument" %}</a></li>
+            <li><a class="username" href="{% url 'auth_profile' user.username %}">{{ user.username|truncatechars:14 }}</a>
+                (<a href="{% url 'auth_logout' %}">{% trans "logout" %}</a>)</li>
             {% endif %}
             <li class="inline-search pull-right">
-                <form action="{% url "contentions_search" %}">
-                    <input type="search" name="keywords" id="keyword" placeholder="{% trans "search keywords" %}">
+                <form action="{% url 'contentions_search' %}">
+                    <input type="search" name="keywords" id="keyword" placeholder="{% trans 'search keywords' %}">
                 </form>
             </li>
             <li class="social-links">

@@ -13,6 +13,12 @@ from i18n.utils import normalize_language_code
 from nouns.utils import get_synsets, get_lemmas, from_lemma
 
 
+def unicode(str):
+    if isinstance(str, str):
+        return str
+    else:
+        return str.encode('utf-8')
+
 class Noun(models.Model):
     text = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255, blank=True)

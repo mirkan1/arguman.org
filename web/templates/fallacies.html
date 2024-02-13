@@ -18,7 +18,7 @@
                     <h4>{{ fallacy.get_fallacy_type_display }}</h4>
                     {{ fallacy.reason }}
                     <div class="reporter">
-                    <a href="{% url "auth_profile" fallacy.reporter.username %}">{{ fallacy.reporter.username|lower }}</a>
+                    <a href="{% url 'auth_profile' fallacy.reporter.username %}">{{ fallacy.reporter.username|lower }}</a>
                     </div>
                 </div>
             </div>

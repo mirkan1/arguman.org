@@ -38,6 +38,12 @@ from nouns.models import Channel
 from i18n.utils import normalize_language_code
 
 
+def unicode(str):
+    if isinstance(str, str):
+        return str
+    else:
+        return str.encode('utf-8')
+
 def get_ip_address(request):
     return request.META.get('REMOTE_ADDR')
 

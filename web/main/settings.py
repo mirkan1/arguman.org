@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+import logging
 from datetime import timedelta
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     'typogrify',
-    'social_auth',
+    # 'social_auth',
     'django_gravatar',
     'rest_framework',
     'rest_framework.authtoken',
@@ -116,7 +116,7 @@ LANGUAGE_CODE_MAPPING = {
 }
 
 LANGUAGE_CODE_MAPPING_REVERSED = {
-    v.lower(): k for k, v in LANGUAGE_CODE_MAPPING.iteritems()
+    v.lower(): k for k, v in LANGUAGE_CODE_MAPPING.items()
 }
 
 TIME_ZONE = 'UTC'
@@ -145,7 +145,7 @@ TEMPLATE_DIRS = (
 
 # Social Auth Settings
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.twitter.TwitterBackend',
+    # 'social_auth.backends.twitter.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -244,7 +244,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'null': {
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
     },
     'loggers': {
@@ -257,5 +257,12 @@ LOGGING = {
 
 try:
     from settings_local import *
+    print("settings_local.py is found!")
 except ImportError:
-    print "settings_local.py not found!"
+    print("settings_local.py not found!")
+
+try:
+    from .settings_local import *
+    print(".settings_local.py is found!")
+except ImportError:
+    print(".settings_local.py not found!")

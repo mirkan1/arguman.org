@@ -4,6 +4,12 @@ from django.core.mail.message import EmailMultiAlternatives
 import requests
 from django.conf import settings
 
+def unicode(str):
+    if isinstance(str, str):
+        return str
+    else:
+        return str.encode('utf-8')
+
 
 class PostmarkMessage(dict):
 

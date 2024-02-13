@@ -1,9 +1,9 @@
-version: '2'
+version: '3'
 services:
   redis:
     image: redis
   mongodb:
-    image: mongo:3.2.3
+    image: mongo
     ports:
       - "27017:27017"
   db:
