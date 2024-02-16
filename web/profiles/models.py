@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.urls import reverse
 from django.db.models import Count
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -47,9 +48,8 @@ class Profile(AbstractUser):
         return self.premise_set.aggregate(Count('supporters'))[
             'supporters__count']
 
-    @models.permalink
     def get_absolute_url(self):
-        return "auth_profile", [self.username]
+        return reverse("auth_profile", args=[self.username])
 
     def calculate_karma(self):
         # CALCULATES THE KARMA POINT OF USER

@@ -1,5 +1,6 @@
+from django.urls import reverse
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_str
 from django.utils.translation import ugettext_lazy as _
 
 from markitup.fields import MarkupField
@@ -33,8 +34,7 @@ class Post(models.Model):
         ordering = ("-date_created", )
 
     def __unicode__(self):
-        return smart_unicode(self.title)
+        return smart_str(self.title)
 
-    @models.permalink
     def get_absolute_url(self):
-        return "blog_detail", [self.slug]
+        return reverse("blog_detail", args=[self.slug])

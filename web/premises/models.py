@@ -13,11 +13,12 @@ from django.core import validators
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.db import models
+from django.urls import reverse
 from django.db.models import Count, Q
 from django.template.defaultfilters import slugify
-from django.utils.encoding import smart_unicode
-from django.utils.functional import curry
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.encoding import smart_str
+from functools import partial
+from django.utils.translation import gettext_lazy as _, get_language
 from django.utils.html import strip_tags
 from i18n.utils import normalize_language_code
 
@@ -105,7 +106,7 @@ class Contention(DeletePreventionMixin, models.Model):
         ordering = ["-date_creation"]
 
     def __unicode__(self):
-        return smart_unicode(self.title)
+        return smart_str(self.title)
 
     def get_premises(self):
         return (
@@ -195,9 +196,8 @@ class Contention(DeletePreventionMixin, models.Model):
             'status': status
         }
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'contention_detail', [self.slug]
+        return reverse('contention_detail', args=[self.slug])
 
     def epoch_seconds(self, date):
         """Returns the number of seconds from the epoch to date."""
@@ -250,11 +250,11 @@ class Contention(DeletePreventionMixin, models.Model):
         return (self.published_premises(ignore_parent=ignore_parent)
                 .filter(premise_type=premise_type))
 
-    because = curry(children_by_premise_type,
+    because = partial(children_by_premise_type,
                     premise_type=SUPPORT, ignore_parent=True)
-    but = curry(children_by_premise_type,
+    but = partial(children_by_premise_type,
                 premise_type=OBJECTION, ignore_parent=True)
-    however = curry(children_by_premise_type,
+    however = partial(children_by_premise_type,
                     premise_type=SITUATION, ignore_parent=True)
 
     def update_sibling_counts(self):
@@ -386,7 +386,7 @@ class Contention(DeletePreventionMixin, models.Model):
 
         return title
 
-    highlighted_title = curry(formatted_title, tag='span')
+    highlighted_title = partial(formatted_title, tag='span')
 
     def related_contentions(self):
         if self.related_nouns.exists():
@@ -491,7 +491,7 @@ class Premise(DeletePreventionMixin, models.Model):
     objects = DeletePreventionManager()
 
     def __unicode__(self):
-        return smart_unicode(self.text)
+        return smart_str(self.text)
 
     def is_collapsed(self):
         return self.report_count > 3
@@ -542,9 +542,8 @@ class Premise(DeletePreventionMixin, models.Model):
             'related_argument': related_argument
         }
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'premise_detail', [self.argument.slug, self.pk]
+        return reverse('premise_detail', args=[self.argument.slug, self.pk])
 
     def get_list_url(self):
         return '%s?view=list' % self.get_absolute_url()
@@ -668,9 +667,9 @@ class Premise(DeletePreventionMixin, models.Model):
         # self.save_karma_tree()
         return super(Premise, self).save(*args, **kwargs)
 
-    because = curry(children_by_premise_type, premise_type=SUPPORT)
-    but = curry(children_by_premise_type, premise_type=OBJECTION)
-    however = curry(children_by_premise_type, premise_type=SITUATION)
+    because = partial(children_by_premise_type, premise_type=SUPPORT)
+    but = partial(children_by_premise_type, premise_type=OBJECTION)
+    however = partial(children_by_premise_type, premise_type=SITUATION)
 
     def update_weight(self):
         weight = 1 + self.supporters.count() - self.reports.count()
@@ -709,7 +708,7 @@ class Report(models.Model):
         help_text=render_to_string("premises/examples/fallacy.html"))
 
     def __unicode__(self):
-        return smart_unicode(self.fallacy_type)
+        return smart_str(self.fallacy_type)
 
     def save_karma(self):
         karma = self.premise.user.calculate_karma()

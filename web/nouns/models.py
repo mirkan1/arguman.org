@@ -2,15 +2,18 @@ from uuid import uuid4
 from unidecode import unidecode
 
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.urls import reverse
+from django.utils.encoding import smart_str
 from django.conf import settings
 from django.template.defaultfilters import slugify
-from django.utils.functional import curry
-from django.utils.translation import ugettext_lazy as _, get_language
-from anora.templatetags.anora import CONSONANT_SOUND, VOWEL_SOUND
+from functools import partial
+from django.utils.translation import gettext_lazy as _, get_language
 from i18n.utils import normalize_language_code
-
 from nouns.utils import get_synsets, get_lemmas, from_lemma
+
+import re
+CONSONANT_SOUND = re.compile(r'''one(![ir])''', re.IGNORECASE|re.VERBOSE)
+VOWEL_SOUND = re.compile(r'''[aeio]|u([aeiou]|[^n][^aeiou]|ni[^dmnl]|nil[^l])|h(ier|onest|onou?r|ors\b|our(!i))|[fhlmnrsx]\b''', re.IGNORECASE|re.VERBOSE)
 
 
 def unicode(str):
@@ -29,7 +32,7 @@ class Noun(models.Model):
         unique_together = (("text", "language"),)
 
     def __unicode__(self):
-        return smart_unicode(self.text).title()
+        return smart_str(self.text).title()
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -118,9 +121,8 @@ class Noun(models.Model):
             nouns__in=nouns
         ).order_by('?')
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'nouns_detail', [self.slug]
+        return reverse('nouns_detail', args=[self.slug])
 
     def serialize(self):
         return {
@@ -141,9 +143,9 @@ class Noun(models.Model):
         )
         return relation
 
-    add_hypernym = curry(add_relation, relation_type="hypernym")
-    add_holonym = curry(add_relation, relation_type="holonym")
-    add_antonym = curry(add_relation, relation_type="antonym")
+    add_hypernym = partial(add_relation, relation_type="hypernym")
+    add_holonym = partial(add_relation, relation_type="holonym")
+    add_antonym = partial(add_relation, relation_type="antonym")
 
 
 class Keyword(models.Model):
@@ -155,7 +157,7 @@ class Keyword(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return smart_unicode(self.text)
+        return smart_str(self.text)
 
 
 class Relation(models.Model):
@@ -188,7 +190,7 @@ class Relation(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return smart_unicode(self.relation_type)
+        return smart_str(self.relation_type)
 
     def reverse_type(self):
         return {
@@ -229,11 +231,10 @@ class Channel(models.Model):
         return super(Channel, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return smart_unicode(self.title)
+        return smart_str(self.title)
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'channel_detail', [self.slug]
+        return reverse('channel_detail', args=[self.slug])
 
     def serialize(self):
         return {
