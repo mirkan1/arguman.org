@@ -76,7 +76,7 @@ class Contention(DeletePreventionMixin, models.Model):
     slug = models.SlugField(max_length=255, blank=True)
     description = models.TextField(
         null=True, blank=True, verbose_name=_("Description"), )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="arguments")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="arguments", on_delete=models.CASCADE)
     owner = models.CharField(
         max_length=255, null=True, blank=True,
         verbose_name=_("Original Discourse"),
@@ -453,13 +453,13 @@ class Contention(DeletePreventionMixin, models.Model):
 
 
 class Premise(DeletePreventionMixin, models.Model):
-    argument = models.ForeignKey(Contention, related_name="premises")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_premises')
+    argument = models.ForeignKey(Contention, related_name="premises", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_premises', on_delete=models.CASCADE)
     parent = models.ForeignKey("self", related_name="children",
                                null=True, blank=True,
                                verbose_name=_("Parent"),
                                help_text=_("The parent of premise. If you don't choose " +
-                                           "anything, it will be a main premise."))
+                                           "anything, it will be a main premise."), on_delete=models.CASCADE)
     premise_type = models.IntegerField(
         default=SUPPORT,
         choices=PREMISE_TYPES, verbose_name=_("Premise Type"),
@@ -476,7 +476,7 @@ class Premise(DeletePreventionMixin, models.Model):
                                          blank=True, null=True,
                                          verbose_name=_('Related Argument'),
                                          help_text=_("You can also associate your premise "
-                                                     "with an argument."))
+                                                     "with an argument."), on_delete=models.CASCADE)
     is_approved = models.BooleanField(default=True, verbose_name=_("Published"))
     collapsed = models.BooleanField(default=False)
     supporters = models.ManyToManyField(settings.AUTH_USER_MODEL,
@@ -691,15 +691,15 @@ class Premise(DeletePreventionMixin, models.Model):
 
 class Report(models.Model):
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                 related_name='reports')
+                                 related_name='reports', on_delete=models.CASCADE)
     premise = models.ForeignKey(Premise,
                                 related_name='reports',
                                 blank=True,
-                                null=True)
+                                null=True, on_delete=models.CASCADE)
     contention = models.ForeignKey(Contention,
                                    related_name='reports',
                                    blank=True,
-                                   null=True)
+                                   null=True, on_delete=models.CASCADE)
     reason = models.TextField(verbose_name=_("Reason"), null=True, blank=False,
                               help_text=_('Please explain that why the premise is a fallacy.'))
     fallacy_type = models.CharField(

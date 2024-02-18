@@ -152,7 +152,7 @@ class Keyword(models.Model):
     """
     Keywords for matching contentions.
     """
-    noun = models.ForeignKey(Noun, related_name="keywords")
+    noun = models.ForeignKey(Noun, related_name="keywords", on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
 
@@ -182,10 +182,10 @@ class Relation(models.Model):
         (ANTONYM, _('opposite with')),
     )
 
-    source = models.ForeignKey(Noun, related_name="out_relations")
-    target = models.ForeignKey(Noun, related_name="in_relations")
+    source = models.ForeignKey(Noun, related_name="out_relations", on_delete=models.CASCADE)
+    target = models.ForeignKey(Noun, related_name="in_relations", on_delete=models.CASCADE)
     relation_type = models.CharField(max_length=25, choices=TYPES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 

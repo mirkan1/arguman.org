@@ -96,9 +96,9 @@ class Notification(models.Model):
     # sender can be `null` for system notifications
     sender = models.ForeignKey(settings.AUTH_USER_MODEL,
                                null=True, blank=True,
-                               related_name="sent_notifications")
+                               related_name="sent_notifications", on_delete=models.CASCADE)
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                  related_name="notifications")
+                                  related_name="notifications", on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     notification_type = models.IntegerField(choices=NOTIFICATION_TYPES)
     is_read = models.BooleanField(default=False)

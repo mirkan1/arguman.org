@@ -1,4 +1,4 @@
-from django.utils.encoding import force_text
+from django.utils.encoding import smart_str
 from bson import ObjectId
 
 from rest_framework.utils.encoders import JSONEncoder
@@ -8,7 +8,7 @@ from rest_framework.renderers import JSONRenderer
 class MongoDBJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, ObjectId):
-            return force_text(obj)
+            return smart_str(obj)
         return super(MongoDBJSONEncoder, self).default(obj)
 
 

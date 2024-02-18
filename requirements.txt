@@ -21,6 +21,7 @@ nltk
 textblob
 anora
 snowballstemmer
-django-typogrify
+typogrify
 networkx
 psycopg2-binary
+jinja2
