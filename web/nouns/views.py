@@ -18,7 +18,7 @@ class NounDetail(DetailView):
                 .objects
                 .prefetch_related('contentions')
                 .select_related('contentions__user')
-                .order_by('-date_creation'))
+                .order_by('slug'))
     template_name = "nouns/detail.html"
     partial_template_name = "nouns/partial.html"
     context_object_name = "noun"

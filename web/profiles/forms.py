@@ -3,7 +3,7 @@
 import re
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import (UserCreationForm, 
     AuthenticationForm as BaseAuthenticationForm)
 
@@ -20,7 +20,8 @@ class AuthenticationForm(BaseAuthenticationForm):
 class RegistrationForm(UserCreationForm):
     username = forms.RegexField(
         label=_("Username"),
-        max_length=30, regex=re.compile(r'^[\w\s-]+$', re.LOCALE),
+        max_length=30, 
+        regex=re.compile(r'^[\w\s-]+$'),
         help_text=_('Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.'),
         error_messages={
             'invalid': _("Invalid characters")

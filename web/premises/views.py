@@ -7,7 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from markdown2 import markdown
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import timezone
 from django.db.models import Max, Sum
 from django.utils.timezone import now
@@ -446,7 +446,7 @@ class StatsView(HomeView):
     def get_stats_type(self):
         return self.request.GET.get("what")
 
-    def build_time_filters(self, date_field="date_creation"):
+    def build_time_filters(self, date_field="slug"):
         days = self.request.GET.get("days")
 
         if not days or days == "all":
@@ -509,7 +509,7 @@ class StatsView(HomeView):
         ).filter(
             argument__language=get_language(),
             supporter_count__gt=0,
-            **self.build_time_filters(date_field="date_creation")
+            **self.build_time_filters(date_field="slug")
         ).order_by("-supporter_count")[:50]
 
     def get_fallacy_premises(self):
@@ -517,7 +517,7 @@ class StatsView(HomeView):
             report_count=Sum("reports"),
         ).filter(
             report_count__gt=0,
-            **self.build_time_filters(date_field="date_creation")
+            **self.build_time_filters(date_field="slug")
         ).order_by("-report_count")[:10]
 
     def get_crowded_contentions(self):
@@ -526,7 +526,7 @@ class StatsView(HomeView):
         ).filter(
             language=normalize_language_code(get_language()),
             premise_count__gt=0,
-            **self.build_time_filters(date_field="date_creation")
+            **self.build_time_filters(date_field="slug")
         ).order_by("-premise_count")[:10]
 
 

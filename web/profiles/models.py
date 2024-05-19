@@ -13,7 +13,7 @@ from premises.signals import (reported_as_fallacy, added_premise_for_premise,
                               added_premise_for_contention,
                               supported_a_premise)
 from profiles.signals import follow_done
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django.core.mail import send_mail
 

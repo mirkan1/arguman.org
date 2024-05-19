@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.utils.functional import SimpleLazyObject
-from pymongo import Connection
+from pymongo import MongoClient as Connection
 
 _connection = None
 
