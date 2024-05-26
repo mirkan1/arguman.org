@@ -26,6 +26,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='premise',
             name='argument',
-            field=models.ForeignKey(related_name=b'premises', to='premises.Contention'),
+            field=models.ForeignKey(related_name='premises', to='premises.Contention', on_delete=models.CASCADE),
         ),
     ]

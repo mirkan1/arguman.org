@@ -17,10 +17,10 @@ class Migration(migrations.Migration):
             name='Report',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('contention', models.ForeignKey(related_name=b'contention_report', blank=True, to='premises.Contention', null=True)),
-                ('premise', models.ForeignKey(related_name=b'comment_report', blank=True, to='premises.Premise', null=True)),
-                ('reporter', models.ForeignKey(related_name=b'reporter', to=settings.AUTH_USER_MODEL)),
-                ('user', models.ForeignKey(related_name=b'user_report', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('contention', models.ForeignKey(related_name='contention_report', blank=True, to='premises.Contention', null=True, on_delete=models.CASCADE)),
+                ('premise', models.ForeignKey(related_name='comment_report', blank=True, to='premises.Premise', null=True, on_delete=models.CASCADE)),
+                ('reporter', models.ForeignKey(related_name='reporter', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(related_name='user_report', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -34,6 +34,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='premise',
             name='parent',
-            field=models.ForeignKey(related_name=b'children', blank=True, to='premises.Premise', help_text=b'\xc3\x96nermenin \xc3\xb6nc\xc3\xbcl\xc3\xbc. E\xc4\x9fer bo\xc5\x9f b\xc4\xb1rak\xc4\xb1l\xc4\xb1rsaana arg\xc3\xbcman\xc4\xb1n bir \xc3\xb6nermesi olur.', null=True, verbose_name=b'\xc3\x96nc\xc3\xbcl\xc3\xbc'),
+            field=models.ForeignKey(related_name='children', blank=True, to='premises.Premise', help_text=b'\xc3\x96nermenin \xc3\xb6nc\xc3\xbcl\xc3\xbc. E\xc4\x9fer bo\xc5\x9f b\xc4\xb1rak\xc4\xb1l\xc4\xb1rsaana arg\xc3\xbcman\xc4\xb1n bir \xc3\xb6nermesi olur.', null=True, verbose_name=b'\xc3\x96nc\xc3\xbcl\xc3\xbc', on_delete=models.CASCADE),
         ),
     ]

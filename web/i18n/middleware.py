@@ -10,6 +10,14 @@ class SubdomainLanguageMiddleware(object):
     is being served on. For example, serving on 'fr.domain.com' would
     make the language French (fr).
     """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Your middleware logic here
+        response = self.get_response(request)
+        return response
+
     LANGUAGES = settings.AVAILABLE_LANGUAGES
 
     def redirect_homepage(self, request):
@@ -52,6 +60,15 @@ class SubdomainLanguageMiddleware(object):
 
 
 class MultipleProxyMiddleware(object):
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Your middleware logic here
+        response = self.get_response(request)
+        return response
+
     FORWARDED_FOR_FIELDS = [
         'HTTP_X_FORWARDED_FOR',
         'HTTP_X_FORWARDED_HOST',

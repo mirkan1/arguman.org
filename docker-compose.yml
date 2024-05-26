@@ -8,6 +8,10 @@ services:
       - "27017:27017"
   db:
     image: postgres
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    ports:
+      - "5432:5432"
   web:
     build: .
     command: bash -c "python web/manage.py migrate && python web/manage.py runserver 0.0.0.0:8000"

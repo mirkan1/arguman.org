@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='premise',
             name='supporters',
-            field=models.ManyToManyField(related_name=b'supporting', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(related_name='supporting', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

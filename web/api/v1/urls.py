@@ -1,4 +1,4 @@
-from django.conf.import include, re_path
+from django.urls import include, re_path
 from api.v1.users.views import profile_me
 
 

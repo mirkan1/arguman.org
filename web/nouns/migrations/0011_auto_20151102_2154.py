@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='relation',
             name='source',
-            field=models.ForeignKey(related_name=b'out_relations', to='nouns.Noun'),
+            field=models.ForeignKey(related_name='out_relations', to='nouns.Noun', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='relation',
             name='target',
-            field=models.ForeignKey(related_name=b'in_relations', to='nouns.Noun'),
+            field=models.ForeignKey(related_name='in_relations', to='nouns.Noun', on_delete=models.CASCADE),
         ),
     ]

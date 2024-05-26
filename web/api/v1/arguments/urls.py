@@ -1,4 +1,4 @@
-from django.urls import patterns, re_path
+from django.urls import re_path
 from .views import (contention_list, contention_detail, premise_detail,
                     premises_list, premise_report, premise_support,
                     premise_supporters)

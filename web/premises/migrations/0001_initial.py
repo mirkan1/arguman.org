@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('owner', models.CharField(max_length=255, null=True, blank=True)),
                 ('sources', models.TextField(null=True, blank=True)),
                 ('is_featured', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -47,9 +47,9 @@ class Migration(migrations.Migration):
                 ('premise_type', models.IntegerField(choices=[(0, '\u0130tiraz'), (1, 'Destek'), (2, 'Bilgilendirme')])),
                 ('sources', models.TextField(null=True, blank=True)),
                 ('is_approved', models.BooleanField(default=False)),
-                ('argument', models.ForeignKey(to='premises.Contention')),
-                ('parent', models.ForeignKey(related_name=b'children', to='premises.Premise')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('argument', models.ForeignKey(to='premises.Contention', on_delete=models.CASCADE)),
+                ('parent', models.ForeignKey(related_name='children', to='premises.Premise', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -58,13 +58,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='premise',
-            field=models.ForeignKey(to='premises.Premise'),
+            field=models.ForeignKey(to='premises.Premise', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='comment',
             name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

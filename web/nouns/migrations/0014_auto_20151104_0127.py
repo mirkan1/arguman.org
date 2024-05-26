@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='keyword',
             name='noun',
-            field=models.ForeignKey(related_name=b'keywords', to='nouns.Noun'),
+            field=models.ForeignKey(related_name='keywords', to='nouns.Noun', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='relation',

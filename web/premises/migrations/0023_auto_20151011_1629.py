@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='premise',
             name='parent',
-            field=models.ForeignKey(related_name=b'children', blank=True, to='premises.Premise', help_text="The parent of premise. If you don't choose anything, it will be a main premise.", null=True, verbose_name='Parent'),
+            field=models.ForeignKey(related_name='children', blank=True, to='premises.Premise', help_text="The parent of premise. If you don't choose anything, it will be a main premise.", null=True, verbose_name='Parent', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='premise',

@@ -3,7 +3,7 @@ Installation
 
 ## Requirements
 
-1. Python 2.7x
+1. Python>=3.8
 2. MongoDB
 
 ## Configuring dev environment
@@ -73,9 +73,19 @@ See http://www.nltk.org/data.html for corpus in other languages.
 
 If the default configuration of using main `postgres` user and db won't work because of the access rights 
 or if you prefer to have a separate database for arguman then you have to create it and configure it in `settings_local.py`.
- 
+```bash
     sudo -u postgres psql -c "CREATE USER arguman WITH PASSWORD 'arguman';"
     sudo -u postgres createdb -O arguman arguman -E utf-8
+```
+If you are running your instance in docker you need to do following in order to create a default postgraes password:
+```bash
+    docker ps
+    docker exec -it <container_name_or_id> bash
+    psql -U postgres
+    CREATE USER arguman WITH PASSWORD 'arguman';
+    GRANT ALL PRIVILEGES ON SCHEMA public TO arguman;
+    exit
+```
 
 ## Setup redis [optional]
 

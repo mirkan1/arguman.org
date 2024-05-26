@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contention',
             name='channel',
-            field=models.ForeignKey(related_name=b'contentions', blank=True, to='premises.Channel', null=True),
+            field=models.ForeignKey(related_name='contentions', blank=True, to='premises.Channel', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

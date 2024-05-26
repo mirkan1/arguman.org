@@ -20,9 +20,9 @@ class Migration(migrations.Migration):
                 ('relation_type', models.CharField(max_length=25, choices=[(b'hypernym', b'Is a'), (b'meronym', b'Part of'), (b'antonym', b'Opposite with')])),
                 ('is_active', models.BooleanField(default=True)),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
-                ('from_noun', models.ForeignKey(related_name=b'from_relations', to='nouns.Noun')),
-                ('to_noun', models.ForeignKey(related_name=b'to_relations', to='nouns.Noun')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('from_noun', models.ForeignKey(related_name='from_relations', to='nouns.Noun', on_delete=models.CASCADE)),
+                ('to_noun', models.ForeignKey(related_name='to_relations', to='nouns.Noun', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
             },

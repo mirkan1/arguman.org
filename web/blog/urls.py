@@ -1,12 +1,11 @@
 from django.urls import re_path
+from django.contrib.sitemaps.views import sitemap  # Import the sitemap view function
 
 from blog.sitemaps import BlogSitemap
 from blog.views import BlogDetailView, BlogIndexView, \
                         BlogPostsRssFeed, BlogPostsAtomFeed
 
-
 urlpatterns = [
-
     # blog urls
     re_path(r'^$', BlogIndexView.as_view(), name="blog"),
     re_path(r'^(?P<slug>[-\w]+)/$', BlogDetailView.as_view(), name="blog_detail"),
@@ -16,8 +15,5 @@ urlpatterns = [
     re_path(r'^feed/atom', BlogPostsAtomFeed(), name="blog_atom_feed"),
 
     # sitemap
-    re_path(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
-        {'sitemaps': {
-            "blog": BlogSitemap()
-        }}, name="blog_sitemap"),
+    re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': {'blog': BlogSitemap()}}, name="blog_sitemap"),
 ]

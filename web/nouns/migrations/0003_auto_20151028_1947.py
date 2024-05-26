@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.CharField(max_length=255)),
-                ('noun', models.ForeignKey(related_name=b'synonyms', to='nouns.Noun')),
+                ('noun', models.ForeignKey(related_name='synonyms', to='nouns.Noun', on_delete=models.CASCADE)),
             ],
             options={
             },

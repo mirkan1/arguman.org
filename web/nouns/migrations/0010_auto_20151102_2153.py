@@ -22,13 +22,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='relation',
             name='source',
-            field=models.ForeignKey(related_name=b'source', default=1, to='nouns.Noun'),
+            field=models.ForeignKey(related_name='source', default=1, to='nouns.Noun', on_delete=models.CASCADE),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='relation',
             name='target',
-            field=models.ForeignKey(related_name=b'target', default=1, to='nouns.Noun'),
+            field=models.ForeignKey(related_name='target', default=1, to='nouns.Noun', on_delete=models.CASCADE),
             preserve_default=False,
         ),
     ]

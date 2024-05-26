@@ -1,4 +1,4 @@
-from django.urls import include, re_path
+from django.urls import include, path, re_path
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.decorators.cache import cache_page
@@ -26,7 +26,7 @@ urlpatterns = [
     re_path(r'^channels/(?P<slug>[-\w]+)$',
         ChannelDetail.as_view(), name="channel_detail"),
     re_path(r'^', include('social_auth.urls')),
-    re_path(r'^admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
     re_path(r'^api/', include('api.urls')),
 
     # Sitemap

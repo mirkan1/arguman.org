@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='premise',
             name='related_argument',
-            field=models.ForeignKey(related_name=b'related_premises', blank=True, to='premises.Contention', help_text='You can also associate your premise with an argument.', null=True, verbose_name='Related Argument'),
+            field=models.ForeignKey(related_name='related_premises', blank=True, to='premises.Contention', help_text='You can also associate your premise with an argument.', null=True, verbose_name='Related Argument', on_delete=models.CASCADE),
         ),
     ]

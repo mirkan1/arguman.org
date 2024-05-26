@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     'typogrify',
-    # 'social_auth',
+    'social_auth',
     'django_gravatar',
     'rest_framework',
     'rest_framework.authtoken',
@@ -51,9 +51,9 @@ INSTALLED_APPS = (
     'newsfeed',
     'blog',
     'api',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'i18n.middleware.SubdomainLanguageMiddleware',
     'i18n.middleware.MultipleProxyMiddleware'
-)
+]
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
@@ -88,7 +88,7 @@ DATABASES = {
 
 PREVENT_LANGUAGE_REDIRECTION = False
 
-REDIRECTED_PATHS = (
+REDIRECTED_PATHS = [
     '/',
     '/newsfeed',
     '/news',
@@ -96,20 +96,20 @@ REDIRECTED_PATHS = (
     '/about',
     '/blog',
     '/new-argument'
-)
+]
 
 DEFAULT_LANGUAGE = 'en'
 
 BASE_DOMAIN = 'arguman.org'
 
-AVAILABLE_LANGUAGES = (
+AVAILABLE_LANGUAGES = [
     'tr',
     'en',
     'ch',
     'es',
     'fr',
     'pl'
-)
+]
 
 LANGUAGE_CODE_MAPPING = {
     'ch': 'zh-Hans'
@@ -138,11 +138,20 @@ STATICFILES_DIRS = (
 )
 
 
+# Add missing context processors in settings.py
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
     },
 ]
 
@@ -153,7 +162,7 @@ TEMPLATE_DIRS = (
 
 # Social Auth Settings
 AUTHENTICATION_BACKENDS = (
-    # 'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.twitter.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -174,7 +183,7 @@ TWITTER_CONSUMER_SECRET = None  # defined in settings_local.py
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
+TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
@@ -182,11 +191,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages")
+    "django.contrib.messages.context_processors.messages"
+]
 
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-SOCIAL_AUTH_PIPELINE = (
+SOCIAL_AUTH_PIPELINE = [
     'social_auth.backends.pipeline.social.social_auth_user',
     'social_auth.backends.pipeline.associate.associate_by_email',
     'social_auth.backends.pipeline.user.get_username',
@@ -194,7 +204,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details',
-)
+]
 
 DEFAULT_FROM_EMAIL = 'info@arguman.org'
 EMAIL_BACKEND = 'main.postmark_backend.EmailBackend'

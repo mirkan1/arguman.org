@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='premise',
             name='user',
-            field=models.ForeignKey(related_name=b'user_premises', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='user_premises', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

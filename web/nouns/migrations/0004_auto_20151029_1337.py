@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='noun',
             name='holonyms',
-            field=models.ManyToManyField(related_name=b'meronyms', null=True, to='nouns.Noun', blank=True),
+            field=models.ManyToManyField(related_name='meronyms', null=True, to='nouns.Noun', blank=True),
             preserve_default=True,
         ),
         migrations.AlterField(

@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('notification_type', models.IntegerField(choices=[(0, b'added-premise-for-contention'), (1, b'added-premise-for-premise'), (2, b'reported-as-fallacy'), (3, b'followed')])),
                 ('is_read', models.BooleanField(default=False)),
                 ('target_object_id', models.IntegerField(null=True, blank=True)),
-                ('recipient', models.ForeignKey(related_name=b'notifications', to=settings.AUTH_USER_MODEL)),
-                ('sender', models.ForeignKey(related_name=b'sent_notifications', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('recipient', models.ForeignKey(related_name='notifications', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('sender', models.ForeignKey(related_name='sent_notifications', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['is_read', '-date_created'],

@@ -40,16 +40,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='report',
             name='contention',
-            field=models.ForeignKey(related_name=b'reports', blank=True, to='premises.Contention', null=True),
+            field=models.ForeignKey(related_name='reports', blank=True, to='premises.Contention', null=True, on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='report',
             name='premise',
-            field=models.ForeignKey(related_name=b'reports', blank=True, to='premises.Premise', null=True),
+            field=models.ForeignKey(related_name='reports', blank=True, to='premises.Premise', null=True, on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='report',
             name='reporter',
-            field=models.ForeignKey(related_name=b'reports', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='reports', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

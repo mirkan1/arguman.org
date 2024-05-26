@@ -1,7 +1,7 @@
-Django
+Django==4.2
 Unidecode
-social-auth-app-django
-social-auth-app-django-mongoengine
+django-social-auth
+#social-auth-app-django-mongoengine
 httplib2
 oauth2
 python-openid
@@ -25,3 +25,4 @@ typogrify
 networkx
 psycopg2-binary
 jinja2
+python-social-auth

@@ -13,7 +13,7 @@ class NewsfeedView(HomeView):
             **kwargs)
 
     def get_news_entries(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             newsfeed = Entry.objects.get_private_newsfeed(
                 offset=self.get_offset(), limit=self.paginate_by,
                 user=self.request.user)

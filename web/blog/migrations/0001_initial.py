@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug')),
                 ('content', markitup.fields.MarkupField(no_rendered_field=True, verbose_name='Content')),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
-                ('date_modified', models.DateTimeField(auto_now=True, auto_now_add=True)),
+                ('date_modified', models.DateTimeField(auto_now=True)),
                 ('is_published', models.BooleanField(default=True, verbose_name='Published')),
                 ('_content_rendered', models.TextField(editable=False, blank=True)),
             ],

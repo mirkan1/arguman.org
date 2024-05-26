@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='noun',
             name='hypernyms',
-            field=models.ManyToManyField(related_name=b'hyponyms', null=True, to=b'nouns.Noun', blank=True),
+            field=models.ManyToManyField(related_name='hyponyms', null=True, to='nouns.Noun', blank=True),
         ),
         migrations.AlterField(
             model_name='noun',
             name='synonyms',
-            field=models.ManyToManyField(to=b'nouns.Noun', null=True, blank=True),
+            field=models.ManyToManyField(to='nouns.Noun', null=True, blank=True),
         ),
     ]

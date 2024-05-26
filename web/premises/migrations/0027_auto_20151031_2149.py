@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='contention',
             name='nouns',
-            field=models.ManyToManyField(related_name=b'contentions', null=True, to=b'nouns.Noun', blank=True),
+            field=models.ManyToManyField(related_name='contentions', null=True, to='nouns.Noun', blank=True),
         ),
     ]

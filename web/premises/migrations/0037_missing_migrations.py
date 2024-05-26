@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='contention',
             name='user',
-            field=models.ForeignKey(related_name=b'arguments', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='arguments', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='premise',
